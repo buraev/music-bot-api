@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  go-server:
+    build: .
+    container_name: go-music-bot-api
+    ports:
+      - "${PORT}:${PORT}"
+    restart: unless-stopped
+    networks:
+      - bot-api
+    env_file:
+      - .env
+    environment:
+      - DATABASE_PATH=${DATABASE_PATH}
+    volumes:
+      - "${HOST_DB_PATH}:${DATABASE_PATH}"
+
+networks:
+  bot-api:
+    driver: bridge
+
