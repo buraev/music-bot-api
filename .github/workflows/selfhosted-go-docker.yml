@@ -1,0 +1,30 @@
+name: Build and Run Go App (Self-hosted)
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build & Run on Self-Hosted Runner
+    runs-on: [self-hosted]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+
+      - name: Create .env
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+
+      - name: Rebuild and Run Docker containers
+        run: sudo make rebuild
+
