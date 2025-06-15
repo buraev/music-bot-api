@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"music-bot-api/internal/model"
 	"music-bot-api/internal/service"
 	"net/http"
 )
@@ -64,7 +65,7 @@ func (h *TagHandler) updateTag(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid input", http.StatusBadRequest)
 		return
 	}
-	err := h.service.UpdateTag(&Tag{ID: input.ID, Name: input.Name})
+	err := h.service.UpdateTag(&model.Tag{ID: input.ID, Name: input.Name})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

@@ -1,4 +1,3 @@
-// internal/model/model.go
 package model
 
 type Tag struct {
